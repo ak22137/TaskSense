@@ -1,0 +1,265 @@
+Backend + Flutter Hybrid Developer Assessment — Full Content
+
+What You're Building
+A task management application that automatically classifies and organizes tasks based on content analysis.
+Example: User creates: "Schedule urgent meeting with team today about budget allocation"
+System automatically:
+
+Detects category: Scheduling (keywords: meeting, schedule)
+
+Assigns priority: High (keywords: urgent, today)
+
+Extracts entities: team, budget
+
+Suggests actions: Block calendar, Send invite, Prepare agenda
+
+Deliverables
+Item	Required
+Backend API (Node.js/FastAPI)	5 core endpoints
+Database Schema	PostgreSQL/Supabase with 2 tables
+Flutter Mobile App	Single dashboard screen
+Live Deployment	Backend on Render.com
+Documentation	GitHub README with setup instructions
+Testing	Minimum 3 unit tests
+Who Should Apply
+
+Hands-on with Flutter (Dart) at production level
+
+Strong Node.js (preferred) or Python/FastAPI backend skills
+
+Experience with Supabase/PostgreSQL or similar
+
+Role Expectations
+Area	Ownership
+Backend (60%)	API design, database architecture, classification workflows, integrations
+Flutter (40%)	Production-ready features, performance optimization, clean architecture
+What You'll Work On — Assessment Task
+
+Build a "Smart Site Task Manager"
+
+Must:
+
+Allow creating, viewing, and managing tasks
+
+Automatically classify & prioritize tasks using intelligent logic
+
+Persist data in Supabase/PostgreSQL
+
+Provide a polished Flutter mobile experience
+
+Bonus if familiar with: LangGraph, LangChain, Render, Cloudflare
+
+Part 1 — Backend (Node.js / FastAPI + Supabase)
+Database Schema
+tasks
+id uuid PRIMARY KEY,
+title text NOT NULL,
+description text,
+category text,    -- scheduling, finance, technical, safety, general
+priority text,    -- high, medium, low
+status text,      -- pending, in_progress, completed
+assigned_to text,
+due_date timestamp,
+extracted_entities jsonb,
+suggested_actions jsonb,
+created_at timestamp,
+updated_at timestamp
+
+task_history
+id uuid PRIMARY KEY,
+task_id uuid REFERENCES tasks(id),
+action text,      -- created, updated, status_changed, completed
+old_value jsonb,
+new_value jsonb,
+changed_by text,
+changed_at timestamp
+
+API Endpoints
+Method	Endpoint	Description
+POST	/api/tasks	Create a new task (with auto-classification)
+GET	/api/tasks	List all tasks (filters: status, category, priority)
+GET	/api/tasks/{id}	Get task details with history
+PATCH	/api/tasks/{id}	Update task
+DELETE	/api/tasks/{id}	Delete task
+Auto-Classification Logic
+
+Category keywords
+
+scheduling → meeting, schedule, call, appointment, deadline
+
+finance → payment, invoice, bill, budget, cost, expense
+
+technical → bug, fix, error, install, repair, maintain
+
+safety → safety, hazard, inspection, compliance, PPE
+
+general → default
+
+Priority keywords
+
+high → urgent, asap, immediately, today, critical, emergency
+
+medium → soon, this week, important
+
+low → default
+
+Entity Extraction
+
+Dates/times mentioned
+
+Person names (after "with", "by", "assign to")
+
+Location references
+
+Action verbs
+
+Suggested Actions
+
+{
+  "scheduling": ["Block calendar", "Send invite", "Prepare agenda", "Set reminder"],
+  "finance": ["Check budget", "Get approval", "Generate invoice", "Update records"],
+  "technical": ["Diagnose issue", "Check resources", "Assign technician", "Document fix"],
+  "safety": ["Conduct inspection", "File report", "Notify supervisor", "Update checklist"]
+}
+
+Part 2 — Flutter App
+Task Dashboard Screen
+Top Section: Summary Cards
+
+Task counts by status: Pending, In Progress, Completed
+
+Main Section: Task List
+
+Title, category chip, priority badge
+
+Due date & assigned person
+
+Status indicator
+
+Pull-to-refresh
+
+Search functionality
+
+Filters: category, priority, status
+
+Bottom Sheet: Create/Edit Task Form
+
+Title (required)
+
+Description (required)
+
+Due date picker
+
+Assigned to
+
+Auto-classification preview before saving
+
+Allow override of category / priority
+
+UI requirements
+
+Material Design 3
+
+Riverpod or Provider
+
+Dio with interceptors
+
+Offline indicator
+
+Loading skeletons
+
+Proper validation & error handling
+
+Part 3 — Deployment & Documentation
+
+Deploy Backend → Render
+README must include:
+
+Overview
+
+Tech stack
+
+Setup instructions
+
+API documentation
+
+Database schema
+
+Screenshots
+
+Architecture decisions
+
+Improvements
+
+Bonus Features (Optional)
+
+Dark mode in Flutter
+
+Task search highlighting
+
+Export to CSV
+
+Real-time updates w/ Supabase subscriptions
+
+Rate limiting
+
+API key authentication
+
+Swagger/OpenAPI docs
+
+Evaluation Criteria
+Area	Weight	What We Look For
+Backend Architecture	35%	Clean API, models, error handling, tests
+Database Design	15%	Normalization, indexes
+Flutter UI/UX	25%	Polish, responsiveness, offline handling
+Classification Logic	15%	Keyword mapping, entity extraction
+Code Quality	10%	Naming, structure, git history
+Submission Requirements — Must Include
+
+GitHub repository + README
+
+Live backend URL
+
+Screenshots of Flutter app
+
+API documentation
+
+Supabase database schema
+
+Minimum 3 unit tests
+
+Meaningful git commit history (10+)
+
+Submission Checklist
+
+GitHub repo with README
+
+Backend deployed on Render
+
+Supabase DB with schema
+
+Flutter dashboard screen
+
+API docs w/ examples
+
+Unit tests
+
+Screenshots
+
+Good commit history
+
+✔️ All content delivered exactly as in the PDF
+If you want, I can now:
+
+turn this into a Markdown README
+
+generate database ERD
+
+create auto-classification code
+
+scaffold Flutter + Node backend
+
+deploy template to Render + Supabase
+
+
+its name will be TaskSense app

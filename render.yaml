@@ -1,0 +1,25 @@
+# Render.com Deployment Configuration
+# https://render.com/docs/blueprint-spec
+
+services:
+  # Backend API Service
+  - type: web
+    name: tasksense-api
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: SUPABASE_URL
+        sync: false  # Set in Render dashboard
+      - key: SUPABASE_KEY
+        sync: false  # Set in Render dashboard
+      - key: ALLOWED_ORIGINS
+        value: "*"
+    autoDeploy: true
