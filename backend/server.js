@@ -70,10 +70,11 @@ app.use(notFound);
 // Error handler (must be last)
 app.use(errorHandler);
 
-// Start server
-const PORT = config.port;
-app.listen(PORT, () => {
-  console.log(`
+// Start server only in non-serverless environment
+if (process.env.VERCEL !== '1') {
+  const PORT = config.port;
+  app.listen(PORT, () => {
+    console.log(`
   ╔═══════════════════════════════════════╗
   ║     TaskSense API Server Started      ║
   ╠═══════════════════════════════════════╣
@@ -81,13 +82,15 @@ app.listen(PORT, () => {
   ║  Port: ${PORT.toString().padEnd(31)} ║
   ║  URL: http://localhost:${PORT.toString().padEnd(16)} ║
   ╚═══════════════════════════════════════╝
-  `);
-});
+    `);
+  });
 
-// Handle unhandled promise rejections
-process.on('unhandledRejection', (err) => {
-  console.error('Unhandled Promise Rejection:', err);
-  process.exit(1);
-});
+  // Handle unhandled promise rejections
+  process.on('unhandledRejection', (err) => {
+    console.error('Unhandled Promise Rejection:', err);
+    process.exit(1);
+  });
+}
 
+// Export for Vercel serverless
 module.exports = app;
